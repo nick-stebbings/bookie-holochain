@@ -1,41 +1,23 @@
+use crate::anchors::*;
 use crate::entities::BookableResource;
 use crate::utils;
 use hdk::prelude::holo_hash::{AgentPubKeyB64, EntryHashB64};
 use hdk::prelude::*;
 
 pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHashB64> {
-    // TODO: Instantiate a bookable resource struct
-    let mut bookable_resource = BookableResource::new(resource_name);
-
-    let agent_info = agent_info()?;
+    let bookable_resource = BookableResource::new(resource_name)?;
 
     create_entry(&bookable_resource.clone())?;
 
     let bookable_resource_hash = hash_entry(&bookable_resource.clone())?;
 
-    let path = prefix_path(bookable_resource.nickname.clone());
+    let path = Path::from(ALL_RESOURCES_ANCHOR.clone());
 
     path.ensure()?;
 
-    let agent_address: AnyDhtHash = agent_info.agent_initial_pubkey.clone().into();
+    create_link(path.path_entry_hash()?, bookable_resource_hash.clone(), ())?;
 
-    create_link(
-        path.path_entry_hash()?,
-        bookable_resource_hash.clone(),
-        link_tag(bookable_resource.nickname.as_str().clone())?,
-    )?;
-    create_link(
-        agent_address.into(),
-        bookable_resource_hash.clone(),
-        link_tag("bookable_resource")?,
-    )?;
-
-    let agent_bookable_resource = AgentBookableResource {
-        agent_pub_key: AgentPubKeyB64::from(agent_info.agent_initial_pubkey),
-        bookable_resource,
-    };
-
-    Ok(agent_bookable_resource)
+    Ok(bookable_resource_hash.into())
 }
 
 // pub fn update_bookable_resource(bookable_resource: BookableResource) -> ExternResult<AgentBookableResource> {

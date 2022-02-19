@@ -15,7 +15,7 @@ impl BookableResource {
         Ok(BookableResource {
             name: name,
             created_at: sys_time()?,
-            author: agent_info()?.agent_latest_pubkey,
+            author: agent_info()?.agent_latest_pubkey.into(),
         })
     }
 }
