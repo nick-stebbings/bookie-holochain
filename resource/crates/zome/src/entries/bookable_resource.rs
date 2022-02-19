@@ -9,6 +9,21 @@ pub struct BookableResource {
     pub created_at: Timestamp,
     pub author: AgentPubKeyB64,
 }
+/* 
+impl HashableContent for BookableResource {
+    type HashType = hash_type::Entry;
+
+    fn hash_type(&self) -> Self::HashType {
+        hash_type::Entry
+    }
+
+    fn hashable_content(&self) -> HashableContentBytes {
+        HashableContentBytes::Content(
+            self.try_into()
+                .expect("Could not serialize HashableContent"),
+        )
+    }
+} */
 
 impl BookableResource {
     pub fn new(name: String) -> ExternResult<Self> {

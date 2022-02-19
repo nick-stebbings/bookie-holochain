@@ -7,5 +7,5 @@ use hdk::prelude::*;
 #[serde(rename_all = "camelCase")]
 pub struct Booking {
     pub slots: Vec<BookingSlot>,
-    pub resource_user: AgentPubKey,
+    pub resource_user: AgentPubKeyB64,
 }

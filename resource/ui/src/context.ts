@@ -1,6 +1,6 @@
 import { Context, createContext } from '@holochain-open-dev/context';
-import { ResourceStore } from './resource-store';
+import { ResourceBookingsStore } from './resource-bookings-store';
 
-export const resourceStoreContext: Context<ResourceStore> = createContext(
+export const resourceStoreContext: Context<ResourceBookingsStore> = createContext(
   'hc_zome_bookable_resources/store'
 );

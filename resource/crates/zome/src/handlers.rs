@@ -5,7 +5,16 @@ use hdk::prelude::holo_hash::EntryHashB64;
 use hdk::prelude::*;
 use std::collections::BTreeMap;
 
-pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHashB64> {
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct CreateBookableResourceOutput {
+    entry_hash: EntryHashB64,
+    bookable_resource: BookableResource,
+}
+
+pub fn create_bookable_resource(
+    resource_name: String,
+) -> ExternResult<CreateBookableResourceOutput> {
     let bookable_resource = BookableResource::new(resource_name)?;
 
     create_entry(&bookable_resource.clone())?;
@@ -18,7 +27,10 @@ pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHash
 
     create_link(path.path_entry_hash()?, bookable_resource_hash.clone(), ())?;
 
-    Ok(bookable_resource_hash.into())
+    Ok(CreateBookableResourceOutput {
+        entry_hash: bookable_resource_hash.into(),
+        bookable_resource,
+    })
 }
 
 pub fn fetch_bookable_resources() -> ExternResult<BTreeMap<EntryHashB64, BookableResource>> {

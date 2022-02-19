@@ -1,6 +1,7 @@
 use std::collections::BTreeMap;
 
-use hdk::prelude::holo_hash::{AgentPubKeyB64, EntryHashB64};
+use handlers::CreateBookableResourceOutput;
+use hdk::prelude::holo_hash::*;
 use hdk::prelude::*;
 
 mod anchors;
@@ -20,7 +21,7 @@ entry_defs![
 
 /// Creates the bookable_resource for the agent executing this call.
 #[hdk_extern]
-pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHashB64> {
+pub fn create_bookable_resource(resource_name: String) -> ExternResult<CreateBookableResourceOutput> {
     handlers::create_bookable_resource(resource_name)
 }
 
@@ -31,42 +32,42 @@ pub fn get_all_resources(_: ()) -> ExternResult<BTreeMap<EntryHashB64, BookableR
 
 #[hdk_extern]
 pub fn create_bookable_slot(
-    input: CreateBookableSlotInput,
+    _input: CreateBookableSlotInput,
 ) -> ExternResult<BTreeMap<EntryHashB64, BookingSlot>> {
     todo!()
 }
 
 #[hdk_extern]
 pub fn get_booking_requests(
-    slot_hash: EntryHashB64,
+    _slot_hash: EntryHashB64,
 ) -> ExternResult<Vec<BTreeMap<EntryHashB64, BookingRequest>>> {
     todo!()
 }
 
 // Booking request management
 #[hdk_extern]
-pub fn create_booking_request(booking_slot: EntryHashB64) -> ExternResult<EntryHashB64> {
+pub fn create_booking_request(_booking_slot: EntryHashB64) -> ExternResult<EntryHashB64> {
     todo!()
 }
 
 #[hdk_extern]
-pub fn decline_booking_request(booking_request_hash: EntryHashB64) -> ExternResult<()> {
+pub fn decline_booking_request(_booking_request_hash: EntryHashB64) -> ExternResult<()> {
     todo!()
 }
 
 #[hdk_extern]
-pub fn cancel_booking_request(booking_request_hash: EntryHashB64) -> ExternResult<()> {
+pub fn cancel_booking_request(_booking_request_hash: EntryHashB64) -> ExternResult<()> {
     todo!()
 }
 
 #[hdk_extern]
-pub fn accept_booking_request(booking_request_hash: EntryHashB64) -> ExternResult<()> {
+pub fn accept_booking_request(_booking_request_hash: EntryHashB64) -> ExternResult<()> {
     todo!()
 }
 
 #[hdk_extern]
 pub fn get_bookings_slots(
-    resource_hash: EntryHashB64,
+    _resource_hash: EntryHashB64,
 ) -> ExternResult<BTreeMap<EntryHashB64, BookingSlot>> {
     todo!()
 }

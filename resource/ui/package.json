@@ -1,6 +1,6 @@
 {
-  "name": "@holochain-open-dev/resource",
-  "version": "0.0.8",
+  "name": "@holochain-open-dev/resource-bookings",
+  "version": "0.0.1",
   "description": "Frontend module for the Holochain hc_zome_bookable_resources zome",
   "author": "guillem.cordoba@gmail.com",
   "license": "MIT",
@@ -44,6 +44,7 @@
     "@holochain-open-dev/context": "^0.0.3",
     "@open-wc/scoped-elements": "^2.0.1",
     "@scoped-elements/material-web": "0.0.16",
+    "@scoped-elements/fullcalendar": "^0.0.1",
     "@scoped-elements/shoelace": "0.0.8",
     "lit": "^2.1.1",
     "lit-svelte-stores": "^0.1.3",

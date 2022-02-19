@@ -5,13 +5,13 @@ import {
   serializeHash,
 } from '@holochain-open-dev/core-types';
 import { CellId, AppSignalCb } from '@holochain/client';
-import { AgentBookableResource } from './types';
+import { BookableResource } from './types';
 
 const sleep = (ms: number) => new Promise(r => setTimeout(() => r(null), ms));
 
 export class ResourceZomeMock extends CellClient {
   constructor(
-    protected agents: Array<AgentBookableResource> = [],
+    protected agents: Array<BookableResource> = [],
     protected latency: number = 500
   ) {
     super(null as any, null as any);
@@ -26,45 +26,6 @@ export class ResourceZomeMock extends CellClient {
 
   get myPubKeyB64() {
     return serializeHash(this.cellId[1]);
-  }
-
-  create_bookable_resource({ nickname }: { nickname: string }) {
-    const agent: AgentBookableResource = {
-      agentPubKey: this.myPubKeyB64,
-      resourceBooking: { nickname, fields: {} },
-    };
-    this.agents.push(agent);
-
-    return agent;
-  }
-
-  search_bookable_resources({ nicknamePrefix }: { nicknamePrefix: string }) {
-    return this.agents.filter(a =>
-      a.resourceBooking.nickname.startsWith(nicknamePrefix.slice(0, 3))
-    );
-  }
-
-  get_my_bookable_resource() {
-    const agent = this.findAgent(this.myPubKeyB64);
-
-    if (!agent) return undefined;
-    return {
-      agentPubKey: agent.agentPubKey,
-      resourceBooking: agent ? agent.resourceBooking : undefined,
-    };
-  }
-
-  get_agent_bookable_resource(agent_address: AgentPubKeyB64) {
-    const agent = this.findAgent(agent_address);
-    return agent ? agent : undefined;
-  }
-
-  get_all_bookable_resources() {
-    return this.agents;
-  }
-
-  findAgent(agent_address: AgentPubKeyB64) {
-    return this.agents.find(user => user.agentPubKey === agent_address);
   }
 
   async callZome(

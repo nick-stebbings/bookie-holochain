@@ -10,14 +10,10 @@ import {
   IconButton,
   Fab,
 } from '@scoped-elements/material-web';
-import { SlAvatar } from '@scoped-elements/shoelace';
 
 import { sharedStyles } from './utils/shared-styles';
-import { ResourceStore } from '../resource-store';
+import { ResourceBookingsStore } from '../resource-bookings-store';
 import { resourceStoreContext } from '../context';
-import { resizeAndExport } from './utils/image';
-import { EditBookableResource } from './edit-resource-booking';
-import { BookableResource } from '../types';
 
 /**
  * A custom element that fires event on value change.
@@ -34,17 +30,21 @@ export class CreateBookableResource extends ScopedElementsMixin(LitElement) {
    */
   @contextProvided({ context: resourceStoreContext })
   @property({ type: Object })
-  store!: ResourceStore;
+  store!: ResourceBookingsStore;
 
   /** Private properties */
 
-  async createBookableResource(resourceBooking: BookableResource) {
-    await this.store.createBookableResource(resourceBooking);
+  @state()
+  name = '';
+
+  async createBookableResource() {
+    const output = await this.store.createBookableResource(this.name);
 
     this.dispatchEvent(
       new CustomEvent('resource-booking-created', {
         detail: {
-          resourceBooking,
+          entryHash: output.entryHash,
+          bookableResource: output.bookableResource,
         },
         bubbles: true,
         composed: true,
@@ -59,14 +59,25 @@ export class CreateBookableResource extends ScopedElementsMixin(LitElement) {
           <span
             class="title"
             style="margin-bottom: 24px; align-self: flex-start"
-            >Create BookableResource</span
+            >Create Resource</span
           >
-          <edit-resource-booking
-            save-resource-booking-label="Create BookableResource"
-            @save-resource-booking=${(e: CustomEvent) =>
-              this.createBookableResource(e.detail.resourceBooking)}
-          ></edit-resource-booking></div
-      ></mwc-card>
+          <mwc-textfield
+            required
+            autoValidate
+            @input=${(e: CustomEvent) =>
+              (this.name = (e.target as TextField).value)}
+            label="Name"
+            style="margin-bottom: 8px"
+            outlined
+          ></mwc-textfield>
+          <mwc-button
+            label="Create Resource"
+            .disabled=${!this.name || this.name.length === 0}
+            raised
+            @click=${() => this.createBookableResource()}
+          ></mwc-button>
+        </div>
+      </mwc-card>
     `;
   }
 
@@ -75,7 +86,8 @@ export class CreateBookableResource extends ScopedElementsMixin(LitElement) {
    */
   static get scopedElements() {
     return {
-      'edit-resource-booking': EditBookableResource,
+      'mwc-textfield': TextField,
+      'mwc-button': Button,
       'mwc-card': Card,
     };
   }
