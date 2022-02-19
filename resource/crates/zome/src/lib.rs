@@ -4,11 +4,11 @@ use hdk::prelude::holo_hash::{AgentPubKeyB64, EntryHashB64};
 use hdk::prelude::*;
 
 mod anchors;
-mod entities;
+mod entries;
 mod handlers;
 mod utils;
 
-use entities::{BookableResource, Booking, BookingRequest, BookingSlot, TimeRange};
+use entries::*;
 
 entry_defs![
     PathEntry::entry_def(),

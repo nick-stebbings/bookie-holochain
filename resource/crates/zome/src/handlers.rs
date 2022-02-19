@@ -1,7 +1,7 @@
 use crate::anchors::*;
-use crate::entities::BookableResource;
+use crate::entries::*;
 use crate::utils;
-use hdk::prelude::holo_hash::{AgentPubKeyB64, EntryHashB64};
+use hdk::prelude::holo_hash::EntryHashB64;
 use hdk::prelude::*;
 use std::collections::BTreeMap;
 
