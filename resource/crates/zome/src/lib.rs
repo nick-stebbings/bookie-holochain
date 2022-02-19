@@ -26,7 +26,7 @@ pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHash
 
 #[hdk_extern]
 pub fn get_all_resources(_: ()) -> ExternResult<Vec<BTreeMap<EntryHashB64, BookableResource>>> {
-    todo!()
+    handlers::fetch_bookable_resources()
 }
 
 #[hdk_extern]

@@ -20,6 +20,23 @@ pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHash
     Ok(bookable_resource_hash.into())
 }
 
+pub fn fetch_bookable_resources() -> ExternResult<Option<Vec<BookableResource>>> {
+    let mut bookable_resources = Vec::new();
+
+    let path = Path::from(ALL_RESOURCES_ANCHOR.clone());
+    let links = get_links(path.path_entry_hash()?, None)?;
+    if links.len() == 0 {
+        return Ok(None);
+    }
+
+    for link in links {
+        let bookable_resource: BookableResource = utils::try_get_and_convert(link.target)?;
+        bookable_resources.push(bookable_resource);
+    }
+
+    Ok(Some(bookable_resources))
+}
+
 // pub fn update_bookable_resource(bookable_resource: BookableResource) -> ExternResult<AgentBookableResource> {
 //     let agent_info = agent_info()?;
 
@@ -118,31 +135,6 @@ pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHash
 //         .collect();
 
 //     Ok(agent_bookable_resources)
-// }
-
-// pub fn get_agent_bookable_resource(
-//     wrapped_agent_pub_key: AgentPubKeyB64,
-// ) -> ExternResult<Option<AgentBookableResource>> {
-//     let agent_pub_key = AgentPubKey::from(wrapped_agent_pub_key.clone());
-
-//     let agent_address: AnyDhtHash = agent_pub_key.into();
-
-//     let links = get_links(agent_address.into(), Some(link_tag("bookable_resource")?))?;
-
-//     if links.len() == 0 {
-//         return Ok(None);
-//     }
-
-//     let link = links[0].clone();
-
-//     let bookable_resource: BookableResource = utils::try_get_and_convert(link.target)?;
-
-//     let agent_bookable_resource = AgentBookableResource {
-//         agent_pub_key: wrapped_agent_pub_key,
-//         bookable_resource,
-//     };
-
-//     Ok(Some(agent_bookable_resource))
 // }
 
 // pub fn get_agents_bookable_resource(
