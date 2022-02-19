@@ -3,6 +3,7 @@ use crate::entities::BookableResource;
 use crate::utils;
 use hdk::prelude::holo_hash::{AgentPubKeyB64, EntryHashB64};
 use hdk::prelude::*;
+use std::collections::BTreeMap;
 
 pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHashB64> {
     let bookable_resource = BookableResource::new(resource_name)?;
@@ -20,21 +21,19 @@ pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHash
     Ok(bookable_resource_hash.into())
 }
 
-pub fn fetch_bookable_resources() -> ExternResult<Option<Vec<BookableResource>>> {
-    let mut bookable_resources = Vec::new();
+pub fn fetch_bookable_resources() -> ExternResult<BTreeMap<EntryHashB64, BookableResource>> {
+    let mut bookable_resources: BTreeMap<EntryHashB64, BookableResource> = BTreeMap::new();
 
     let path = Path::from(ALL_RESOURCES_ANCHOR.clone());
     let links = get_links(path.path_entry_hash()?, None)?;
-    if links.len() == 0 {
-        return Ok(None);
-    }
 
     for link in links {
         let bookable_resource: BookableResource = utils::try_get_and_convert(link.target)?;
-        bookable_resources.push(bookable_resource);
+
+        bookable_resources.insert(link.target.into(), bookable_resource);
     }
 
-    Ok(Some(bookable_resources))
+    Ok(bookable_resources)
 }
 
 // pub fn update_bookable_resource(bookable_resource: BookableResource) -> ExternResult<AgentBookableResource> {
