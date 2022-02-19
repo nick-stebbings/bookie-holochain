@@ -1,4 +1,6 @@
-use hdk::prelude::holo_hash::AgentPubKeyB64;
+use std::collections::BTreeMap;
+
+use hdk::prelude::holo_hash::{AgentPubKeyB64, EntryHashB64};
 use hdk::prelude::*;
 
 mod anchors;
@@ -18,14 +20,12 @@ entry_defs![
 
 /// Creates the bookable_resource for the agent executing this call.
 #[hdk_extern]
-pub fn create_bookable_resource(
-    bookable_resource: BookableResource,
-) -> ExternResult<AgentBookableResource> {
-    handlers::create_bookable_resource(bookable_resource)
+pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHashB64> {
+    handlers::create_bookable_resource(resource_name)
 }
 
 #[hdk_extern]
-pub fn get_all_resources(_: ()) -> Vec<BTreeMap<EntryHashB64, Resource>> {
+pub fn get_all_resources(_: ()) -> Vec<BTreeMap<EntryHashB64, BookableResource>> {
     todo!()
 }
 

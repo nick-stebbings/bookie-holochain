@@ -1,11 +1,12 @@
-use crate::{utils, AgentBookableResource, BookableResource};
-use hdk::prelude::holo_hash::AgentPubKeyB64;
+use crate::entities::BookableResource;
+use crate::utils;
+use hdk::prelude::holo_hash::{AgentPubKeyB64, EntryHashB64};
 use hdk::prelude::*;
-use std::convert::TryInto;
 
-pub fn create_bookable_resource(
-    bookable_resource: BookableResource,
-) -> ExternResult<AgentBookableResource> {
+pub fn create_bookable_resource(resource_name: String) -> ExternResult<EntryHashB64> {
+    // TODO: Instantiate a bookable resource struct
+    let mut bookable_resource = BookableResource::new(resource_name);
+
     let agent_info = agent_info()?;
 
     create_entry(&bookable_resource.clone())?;
