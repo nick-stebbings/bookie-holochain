@@ -16,3 +16,9 @@ pub struct BookingSlot {
     pub resource_hash: EntryHashB64,
     pub time_range: TimeRange,
 }
+
+#[derive(Clone, Deserialize, Serialize, Debug)]
+pub struct CreateBookableSlotInput {
+    resource_hash: EntryHashB64,
+    time_range: TimeRange,
+}

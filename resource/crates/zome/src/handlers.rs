@@ -28,7 +28,7 @@ pub fn fetch_bookable_resources() -> ExternResult<BTreeMap<EntryHashB64, Bookabl
     let links = get_links(path.path_entry_hash()?, None)?;
 
     for link in links {
-        let bookable_resource: BookableResource = utils::try_get_and_convert(link.target)?;
+        let bookable_resource: BookableResource = utils::try_get_and_convert(link.target.clone())?;
 
         bookable_resources.insert(link.target.into(), bookable_resource);
     }

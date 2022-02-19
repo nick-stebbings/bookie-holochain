@@ -31,8 +31,7 @@ pub fn get_all_resources(_: ()) -> ExternResult<BTreeMap<EntryHashB64, BookableR
 
 #[hdk_extern]
 pub fn create_bookable_slot(
-    resource_hash: EntryHashB64,
-    time_range: TimeRange,
+    input: CreateBookableSlotInput,
 ) -> ExternResult<BTreeMap<EntryHashB64, BookingSlot>> {
     todo!()
 }
@@ -40,28 +39,28 @@ pub fn create_bookable_slot(
 #[hdk_extern]
 pub fn get_booking_requests(
     slot_hash: EntryHashB64,
-) -> Vec<BTreeMap<EntryHashB64, BookingRequest>> {
+) -> ExternResult<Vec<BTreeMap<EntryHashB64, BookingRequest>>> {
     todo!()
 }
 
 // Booking request management
 #[hdk_extern]
-pub fn create_booking_request(booking_slot: EntryHashB64) {
+pub fn create_booking_request(booking_slot: EntryHashB64) -> ExternResult<EntryHashB64> {
     todo!()
 }
 
 #[hdk_extern]
-pub fn decline_booking_request(booking_request_hash: EntryHashB64) {
+pub fn decline_booking_request(booking_request_hash: EntryHashB64) -> ExternResult<()> {
     todo!()
 }
 
 #[hdk_extern]
-pub fn cancel_booking_request(booking_request_hash: EntryHashB64) {
+pub fn cancel_booking_request(booking_request_hash: EntryHashB64) -> ExternResult<()> {
     todo!()
 }
 
 #[hdk_extern]
-pub fn accept_booking_request(booking_request_hash: EntryHashB64) {
+pub fn accept_booking_request(booking_request_hash: EntryHashB64) -> ExternResult<()> {
     todo!()
 }
 
