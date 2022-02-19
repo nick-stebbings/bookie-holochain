@@ -11,7 +11,7 @@ import { contextProvided } from '@holochain-open-dev/context';
 import { StoreSubscriber } from 'lit-svelte-stores';
 
 import { sharedStyles } from './utils/shared-styles';
-import { CreateResourceBooking } from './create-resource-booking';
+import { CreateBookableResource } from './create-resource-booking';
 import { ResourceStore } from '../resource-store';
 import { resourceStoreContext } from '../context';
 
@@ -19,7 +19,7 @@ import { resourceStoreContext } from '../context';
  * @element resource-booking-prompt
  * @slot hero - Will be displayed above the create-resource-booking form when the user is prompted with it
  */
-export class ResourceBookingPrompt extends ScopedElementsMixin(LitElement) {
+export class BookableResourcePrompt extends ScopedElementsMixin(LitElement) {
   /** Public attributes */
 
   /** Dependencies */
@@ -37,10 +37,10 @@ export class ResourceBookingPrompt extends ScopedElementsMixin(LitElement) {
   @state()
   private _loading = true;
 
-  private _myResourceBooking = new StoreSubscriber(this, () => this.store?.myResourceBooking);
+  private _myBookableResource = new StoreSubscriber(this, () => this.store?.myBookableResource);
 
   async firstUpdated() {
-    await this.store.fetchMyResourceBooking();
+    await this.store.fetchMyBookableResource();
     this._loading = false;
   }
 
@@ -60,7 +60,7 @@ export class ResourceBookingPrompt extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html`
-      ${!this._loading && this._myResourceBooking.value
+      ${!this._loading && this._myBookableResource.value
         ? html`<slot></slot>`
         : this.renderPrompt()}
     `;
@@ -74,7 +74,7 @@ export class ResourceBookingPrompt extends ScopedElementsMixin(LitElement) {
       'mwc-textfield': TextField,
       'mwc-button': Button,
       'mwc-circular-progress': CircularProgress,
-      'create-resource-booking': CreateResourceBooking,
+      'create-resource-booking': CreateBookableResource,
     };
   }
 

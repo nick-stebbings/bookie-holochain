@@ -190,7 +190,7 @@
             },
             {
               "kind": "method",
-              "name": "create_resource_booking",
+              "name": "create_bookable_resource",
               "parameters": [
                 {
                   "name": "{ nickname }",
@@ -202,7 +202,7 @@
             },
             {
               "kind": "method",
-              "name": "search_resource_bookings",
+              "name": "search_bookable_resources",
               "parameters": [
                 {
                   "name": "{ nicknamePrefix }",
@@ -214,11 +214,11 @@
             },
             {
               "kind": "method",
-              "name": "get_my_resource_booking"
+              "name": "get_my_bookable_resource"
             },
             {
               "kind": "method",
-              "name": "get_agent_resource_booking",
+              "name": "get_agent_bookable_resource",
               "parameters": [
                 {
                   "name": "agent_address",
@@ -230,7 +230,7 @@
             },
             {
               "kind": "method",
-              "name": "get_all_resource_bookings"
+              "name": "get_all_bookable_resources"
             },
             {
               "kind": "method",
@@ -326,7 +326,7 @@
           "members": [
             {
               "kind": "method",
-              "name": "getMyResourceBooking",
+              "name": "getMyBookableResource",
               "return": {
                 "type": {
                   "text": ""
@@ -336,7 +336,7 @@
             },
             {
               "kind": "method",
-              "name": "getAgentResourceBooking",
+              "name": "getAgentBookableResource",
               "return": {
                 "type": {
                   "text": ""
@@ -403,7 +403,7 @@
             },
             {
               "kind": "method",
-              "name": "createResourceBooking",
+              "name": "createBookableResource",
               "return": {
                 "type": {
                   "text": ""
@@ -413,7 +413,7 @@
                 {
                   "name": "resource-booking",
                   "type": {
-                    "text": "ResourceBooking"
+                    "text": "BookableResource"
                   },
                   "description": "the resource-booking to create"
                 }
@@ -422,7 +422,7 @@
             },
             {
               "kind": "method",
-              "name": "updateResourceBooking",
+              "name": "updateBookableResource",
               "return": {
                 "type": {
                   "text": ""
@@ -432,7 +432,7 @@
                 {
                   "name": "resource-booking",
                   "type": {
-                    "text": "ResourceBooking"
+                    "text": "BookableResource"
                   },
                   "description": "the resource-booking to create"
                 }
@@ -495,7 +495,7 @@
               "kind": "field",
               "name": "_knownResourceStore",
               "type": {
-                "text": "Writable<Dictionary<ResourceBooking>>"
+                "text": "Writable<Dictionary<BookableResource>>"
               },
               "privacy": "private"
             },
@@ -512,16 +512,16 @@
               "kind": "field",
               "name": "knownResource",
               "type": {
-                "text": "Readable<Dictionary<ResourceBooking>>"
+                "text": "Readable<Dictionary<BookableResource>>"
               },
               "privacy": "public",
               "description": "Readable stores"
             },
             {
               "kind": "field",
-              "name": "myResourceBooking",
+              "name": "myBookableResource",
               "type": {
-                "text": "Readable<ResourceBooking>"
+                "text": "Readable<BookableResource>"
               },
               "privacy": "public"
             },
@@ -530,7 +530,7 @@
               "name": "resource-bookingOf",
               "return": {
                 "type": {
-                  "text": "Readable<ResourceBooking>"
+                  "text": "Readable<BookableResource>"
                 }
               },
               "parameters": [
@@ -561,10 +561,10 @@
             },
             {
               "kind": "method",
-              "name": "fetchAgentResourceBooking",
+              "name": "fetchAgentBookableResource",
               "return": {
                 "type": {
-                  "text": "Promise<ResourceBooking | undefined>"
+                  "text": "Promise<BookableResource | undefined>"
                 }
               },
               "parameters": [
@@ -593,17 +593,17 @@
                   }
                 }
               ],
-              "description": "Fetches the resource for the given agents in the DHT\n\nYou can subscribe to knowResource to get updated with all the resource when this call is done\n\nUse this over `fetchAgentResourceBooking` when fetching multiple resource, as it will be more performant"
+              "description": "Fetches the resource for the given agents in the DHT\n\nYou can subscribe to knowResource to get updated with all the resource when this call is done\n\nUse this over `fetchAgentBookableResource` when fetching multiple resource, as it will be more performant"
             },
             {
               "kind": "method",
-              "name": "fetchMyResourceBooking",
+              "name": "fetchMyBookableResource",
               "return": {
                 "type": {
                   "text": "Promise<void>"
                 }
               },
-              "description": "Fetch my resource-booking\n\nYou can subscribe to `myResourceBooking` to get updated with my resource-booking"
+              "description": "Fetch my resource-booking\n\nYou can subscribe to `myBookableResource` to get updated with my resource-booking"
             },
             {
               "kind": "method",
@@ -626,7 +626,7 @@
             },
             {
               "kind": "method",
-              "name": "createResourceBooking",
+              "name": "createBookableResource",
               "return": {
                 "type": {
                   "text": "Promise<void>"
@@ -636,7 +636,7 @@
                 {
                   "name": "resource-booking",
                   "type": {
-                    "text": "ResourceBooking"
+                    "text": "BookableResource"
                   },
                   "description": "resource-booking to be created"
                 }
@@ -645,7 +645,7 @@
             },
             {
               "kind": "method",
-              "name": "updateResourceBooking",
+              "name": "updateBookableResource",
               "return": {
                 "type": {
                   "text": "Promise<void>"
@@ -655,7 +655,7 @@
                 {
                   "name": "resource-booking",
                   "type": {
-                    "text": "ResourceBooking"
+                    "text": "BookableResource"
                   },
                   "description": "resource-booking to be created"
                 }
@@ -784,7 +784,7 @@
             },
             {
               "kind": "field",
-              "name": "_resource_booking",
+              "name": "_bookable_resource",
               "privacy": "private",
               "default": "new StoreSubscriber(this, () =>\n    this.store?.resource-bookingOf(this.agentPubKey)\n  )",
               "inheritedFrom": {
@@ -815,7 +815,7 @@
           "description": "",
           "name": "CP",
           "superclass": {
-            "name": "CreateResourceBooking",
+            "name": "CreateBookableResource",
             "module": "/src/elements/create-resource-booking"
           },
           "tagName": "create-resource-booking",
@@ -829,7 +829,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "fieldName": "store",
               "inheritedFrom": {
-                "name": "CreateResourceBooking",
+                "name": "CreateBookableResource",
                 "module": "src/elements/create-resource-booking.ts"
               }
             }
@@ -844,24 +844,24 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "attribute": "store",
               "inheritedFrom": {
-                "name": "CreateResourceBooking",
+                "name": "CreateBookableResource",
                 "module": "src/elements/create-resource-booking.ts"
               }
             },
             {
               "kind": "method",
-              "name": "createResourceBooking",
+              "name": "createBookableResource",
               "parameters": [
                 {
                   "name": "resource-booking",
                   "type": {
-                    "text": "ResourceBooking"
+                    "text": "BookableResource"
                   }
                 }
               ],
               "description": "Private properties",
               "inheritedFrom": {
-                "name": "CreateResourceBooking",
+                "name": "CreateBookableResource",
                 "module": "src/elements/create-resource-booking.ts"
               }
             }
@@ -874,7 +874,7 @@
               },
               "description": "Fired after the resource-booking has been created. Detail will have this shape: { resource-booking: { nickname, fields } }",
               "inheritedFrom": {
-                "name": "CreateResourceBooking",
+                "name": "CreateBookableResource",
                 "module": "src/elements/create-resource-booking.ts"
               }
             }
@@ -1153,7 +1153,7 @@
           "description": "",
           "name": "MP",
           "superclass": {
-            "name": "MyResourceBooking",
+            "name": "MyBookableResource",
             "module": "/src/elements/my-resource-booking"
           },
           "tagName": "my-resource-booking",
@@ -1167,7 +1167,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "fieldName": "store",
               "inheritedFrom": {
-                "name": "MyResourceBooking",
+                "name": "MyBookableResource",
                 "module": "src/elements/my-resource-booking.ts"
               }
             }
@@ -1182,7 +1182,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "attribute": "store",
               "inheritedFrom": {
-                "name": "MyResourceBooking",
+                "name": "MyBookableResource",
                 "module": "src/elements/my-resource-booking.ts"
               }
             },
@@ -1196,7 +1196,7 @@
               "default": "false",
               "description": "Private properties",
               "inheritedFrom": {
-                "name": "MyResourceBooking",
+                "name": "MyBookableResource",
                 "module": "src/elements/my-resource-booking.ts"
               }
             }
@@ -1223,7 +1223,7 @@
           "description": "",
           "name": "PD",
           "superclass": {
-            "name": "ResourceBookingDetail",
+            "name": "BookableResourceDetail",
             "module": "/src/elements/resource-booking-detail"
           },
           "tagName": "resource-booking-detail",
@@ -1237,7 +1237,7 @@
               "description": "REQUIRED. Public key identifying the agent for which the resource-booking should be shown",
               "fieldName": "agentPubKey",
               "inheritedFrom": {
-                "name": "ResourceBookingDetail",
+                "name": "BookableResourceDetail",
                 "module": "src/elements/resource-booking-detail.ts"
               }
             },
@@ -1249,7 +1249,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "fieldName": "store",
               "inheritedFrom": {
-                "name": "ResourceBookingDetail",
+                "name": "BookableResourceDetail",
                 "module": "src/elements/resource-booking-detail.ts"
               }
             }
@@ -1264,7 +1264,7 @@
               "description": "REQUIRED. Public key identifying the agent for which the resource-booking should be shown",
               "attribute": "agent-pub-key",
               "inheritedFrom": {
-                "name": "ResourceBookingDetail",
+                "name": "BookableResourceDetail",
                 "module": "src/elements/resource-booking-detail.ts"
               }
             },
@@ -1277,7 +1277,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "attribute": "store",
               "inheritedFrom": {
-                "name": "ResourceBookingDetail",
+                "name": "BookableResourceDetail",
                 "module": "src/elements/resource-booking-detail.ts"
               }
             },
@@ -1291,17 +1291,17 @@
               "default": "true",
               "description": "Private properties",
               "inheritedFrom": {
-                "name": "ResourceBookingDetail",
+                "name": "BookableResourceDetail",
                 "module": "src/elements/resource-booking-detail.ts"
               }
             },
             {
               "kind": "field",
-              "name": "_agentResourceBooking",
+              "name": "_agentBookableResource",
               "privacy": "private",
               "default": "new StoreSubscriber(this, () =>\n    this.store?.resource-bookingOf(this.agentPubKey)\n  )",
               "inheritedFrom": {
-                "name": "ResourceBookingDetail",
+                "name": "BookableResourceDetail",
                 "module": "src/elements/resource-booking-detail.ts"
               }
             },
@@ -1314,7 +1314,7 @@
                 }
               },
               "inheritedFrom": {
-                "name": "ResourceBookingDetail",
+                "name": "BookableResourceDetail",
                 "module": "src/elements/resource-booking-detail.ts"
               }
             },
@@ -1336,7 +1336,7 @@
                 }
               ],
               "inheritedFrom": {
-                "name": "ResourceBookingDetail",
+                "name": "BookableResourceDetail",
                 "module": "src/elements/resource-booking-detail.ts"
               }
             }
@@ -1363,7 +1363,7 @@
           "description": "",
           "name": "PP",
           "superclass": {
-            "name": "ResourceBookingPrompt",
+            "name": "BookableResourcePrompt",
             "module": "/src/elements/resource-booking-prompt"
           },
           "tagName": "resource-booking-prompt",
@@ -1377,7 +1377,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "fieldName": "store",
               "inheritedFrom": {
-                "name": "ResourceBookingPrompt",
+                "name": "BookableResourcePrompt",
                 "module": "src/elements/resource-booking-prompt.ts"
               }
             }
@@ -1392,7 +1392,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "attribute": "store",
               "inheritedFrom": {
-                "name": "ResourceBookingPrompt",
+                "name": "BookableResourcePrompt",
                 "module": "src/elements/resource-booking-prompt.ts"
               }
             },
@@ -1406,17 +1406,17 @@
               "default": "true",
               "description": "Private properties",
               "inheritedFrom": {
-                "name": "ResourceBookingPrompt",
+                "name": "BookableResourcePrompt",
                 "module": "src/elements/resource-booking-prompt.ts"
               }
             },
             {
               "kind": "field",
-              "name": "_myResourceBooking",
+              "name": "_myBookableResource",
               "privacy": "private",
-              "default": "new StoreSubscriber(this, () => this.store?.myResourceBooking)",
+              "default": "new StoreSubscriber(this, () => this.store?.myBookableResource)",
               "inheritedFrom": {
-                "name": "ResourceBookingPrompt",
+                "name": "BookableResourcePrompt",
                 "module": "src/elements/resource-booking-prompt.ts"
               }
             },
@@ -1424,7 +1424,7 @@
               "kind": "method",
               "name": "renderPrompt",
               "inheritedFrom": {
-                "name": "ResourceBookingPrompt",
+                "name": "BookableResourcePrompt",
                 "module": "src/elements/resource-booking-prompt.ts"
               }
             }
@@ -1583,7 +1583,7 @@
               "kind": "field",
               "name": "_filteredAgents",
               "type": {
-                "text": "Array<AgentResourceBooking>"
+                "text": "Array<AgentBookableResource>"
               },
               "privacy": "private",
               "inheritedFrom": {
@@ -1677,7 +1677,7 @@
                 {
                   "name": "agent",
                   "type": {
-                    "text": "AgentResourceBooking"
+                    "text": "AgentBookableResource"
                   }
                 }
               ],
@@ -1722,7 +1722,7 @@
           "description": "",
           "name": "UP",
           "superclass": {
-            "name": "UpdateResourceBooking",
+            "name": "UpdateBookableResource",
             "module": "/src/elements/update-resource-booking"
           },
           "tagName": "update-resource-booking",
@@ -1736,7 +1736,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "fieldName": "store",
               "inheritedFrom": {
-                "name": "UpdateResourceBooking",
+                "name": "UpdateBookableResource",
                 "module": "src/elements/update-resource-booking.ts"
               }
             }
@@ -1751,7 +1751,7 @@
               "description": "`ResourceStore` that is requested via context.\nOnly set this property if you want to override the store requested via context.",
               "attribute": "store",
               "inheritedFrom": {
-                "name": "UpdateResourceBooking",
+                "name": "UpdateBookableResource",
                 "module": "src/elements/update-resource-booking.ts"
               }
             },
@@ -1765,33 +1765,33 @@
               "default": "true",
               "description": "Private properties",
               "inheritedFrom": {
-                "name": "UpdateResourceBooking",
+                "name": "UpdateBookableResource",
                 "module": "src/elements/update-resource-booking.ts"
               }
             },
             {
               "kind": "field",
-              "name": "_myResourceBooking",
+              "name": "_myBookableResource",
               "privacy": "private",
-              "default": "new StoreSubscriber(this, () => this.store?.myResourceBooking)",
+              "default": "new StoreSubscriber(this, () => this.store?.myBookableResource)",
               "inheritedFrom": {
-                "name": "UpdateResourceBooking",
+                "name": "UpdateBookableResource",
                 "module": "src/elements/update-resource-booking.ts"
               }
             },
             {
               "kind": "method",
-              "name": "updateResourceBooking",
+              "name": "updateBookableResource",
               "parameters": [
                 {
                   "name": "resource-booking",
                   "type": {
-                    "text": "ResourceBooking"
+                    "text": "BookableResource"
                   }
                 }
               ],
               "inheritedFrom": {
-                "name": "UpdateResourceBooking",
+                "name": "UpdateBookableResource",
                 "module": "src/elements/update-resource-booking.ts"
               }
             }
@@ -1804,7 +1804,7 @@
               },
               "description": "Fired after the resource-booking has been created. Detail will have this shape: { resource-booking: { nickname, fields } }",
               "inheritedFrom": {
-                "name": "UpdateResourceBooking",
+                "name": "UpdateBookableResource",
                 "module": "src/elements/update-resource-booking.ts"
               }
             }
@@ -1861,7 +1861,7 @@
             },
             {
               "kind": "field",
-              "name": "_resource_booking",
+              "name": "_bookable_resource",
               "privacy": "private",
               "default": "new StoreSubscriber(this, () =>\n    this.store?.resource-bookingOf(this.agentPubKey)\n  )"
             }
@@ -1924,7 +1924,7 @@
         {
           "kind": "class",
           "description": "A custom element that fires event on value change.",
-          "name": "CreateResourceBooking",
+          "name": "CreateBookableResource",
           "members": [
             {
               "kind": "field",
@@ -1937,12 +1937,12 @@
             },
             {
               "kind": "method",
-              "name": "createResourceBooking",
+              "name": "createBookableResource",
               "parameters": [
                 {
                   "name": "resource-booking",
                   "type": {
-                    "text": "ResourceBooking"
+                    "text": "BookableResource"
                   }
                 }
               ],
@@ -1985,9 +1985,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "CreateResourceBooking",
+          "name": "CreateBookableResource",
           "declaration": {
-            "name": "CreateResourceBooking",
+            "name": "CreateBookableResource",
             "module": "src/elements/create-resource-booking.ts"
           }
         }
@@ -2000,24 +2000,24 @@
         {
           "kind": "class",
           "description": "",
-          "name": "EditResourceBooking",
+          "name": "EditBookableResource",
           "members": [
             {
               "kind": "field",
               "name": "resource-booking",
               "type": {
-                "text": "ResourceBooking | undefined"
+                "text": "BookableResource | undefined"
               },
               "description": "The resource-booking to be edited.",
               "attribute": "resource-booking"
             },
             {
               "kind": "field",
-              "name": "saveResourceBookingLabel",
+              "name": "saveBookableResourceLabel",
               "type": {
                 "text": "string"
               },
-              "default": "'Save ResourceBooking'",
+              "default": "'Save BookableResource'",
               "description": "Label for the save resource-booking button.",
               "attribute": "save-resource-booking-label"
             },
@@ -2117,7 +2117,7 @@
             },
             {
               "kind": "method",
-              "name": "fireSaveResourceBooking"
+              "name": "fireSaveBookableResource"
             },
             {
               "kind": "method",
@@ -2145,7 +2145,7 @@
             {
               "name": "resource-booking",
               "type": {
-                "text": "ResourceBooking | undefined"
+                "text": "BookableResource | undefined"
               },
               "description": "The resource-booking to be edited.",
               "fieldName": "resource-booking"
@@ -2155,9 +2155,9 @@
               "type": {
                 "text": "string"
               },
-              "default": "'Save ResourceBooking'",
+              "default": "'Save BookableResource'",
               "description": "Label for the save resource-booking button.",
-              "fieldName": "saveResourceBookingLabel"
+              "fieldName": "saveBookableResourceLabel"
             },
             {
               "name": "store",
@@ -2185,9 +2185,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "EditResourceBooking",
+          "name": "EditBookableResource",
           "declaration": {
-            "name": "EditResourceBooking",
+            "name": "EditBookableResource",
             "module": "src/elements/edit-resource-booking.ts"
           }
         }
@@ -2401,7 +2401,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "MyResourceBooking",
+          "name": "MyBookableResource",
           "members": [
             {
               "kind": "field",
@@ -2450,9 +2450,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "MyResourceBooking",
+          "name": "MyBookableResource",
           "declaration": {
-            "name": "MyResourceBooking",
+            "name": "MyBookableResource",
             "module": "src/elements/my-resource-booking.ts"
           }
         }
@@ -2465,7 +2465,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "ResourceBookingDetail",
+          "name": "BookableResourceDetail",
           "members": [
             {
               "kind": "field",
@@ -2497,7 +2497,7 @@
             },
             {
               "kind": "field",
-              "name": "_agentResourceBooking",
+              "name": "_agentBookableResource",
               "privacy": "private",
               "default": "new StoreSubscriber(this, () =>\n    this.store?.resource-bookingOf(this.agentPubKey)\n  )"
             },
@@ -2564,9 +2564,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "ResourceBookingDetail",
+          "name": "BookableResourceDetail",
           "declaration": {
-            "name": "ResourceBookingDetail",
+            "name": "BookableResourceDetail",
             "module": "src/elements/resource-booking-detail.ts"
           }
         }
@@ -2579,7 +2579,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "ResourceBookingPrompt",
+          "name": "BookableResourcePrompt",
           "slots": [
             {
               "description": "Will be displayed above the create-resource-booking form when the user is prompted with it",
@@ -2608,9 +2608,9 @@
             },
             {
               "kind": "field",
-              "name": "_myResourceBooking",
+              "name": "_myBookableResource",
               "privacy": "private",
-              "default": "new StoreSubscriber(this, () => this.store?.myResourceBooking)"
+              "default": "new StoreSubscriber(this, () => this.store?.myBookableResource)"
             },
             {
               "kind": "method",
@@ -2644,9 +2644,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "ResourceBookingPrompt",
+          "name": "BookableResourcePrompt",
           "declaration": {
-            "name": "ResourceBookingPrompt",
+            "name": "BookableResourcePrompt",
             "module": "src/elements/resource-booking-prompt.ts"
           }
         }
@@ -2711,7 +2711,7 @@
               "kind": "field",
               "name": "_filteredAgents",
               "type": {
-                "text": "Array<AgentResourceBooking>"
+                "text": "Array<AgentBookableResource>"
               },
               "privacy": "private"
             },
@@ -2777,7 +2777,7 @@
                 {
                   "name": "agent",
                   "type": {
-                    "text": "AgentResourceBooking"
+                    "text": "AgentBookableResource"
                   }
                 }
               ]
@@ -2864,7 +2864,7 @@
         {
           "kind": "class",
           "description": "",
-          "name": "UpdateResourceBooking",
+          "name": "UpdateBookableResource",
           "members": [
             {
               "kind": "field",
@@ -2887,18 +2887,18 @@
             },
             {
               "kind": "field",
-              "name": "_myResourceBooking",
+              "name": "_myBookableResource",
               "privacy": "private",
-              "default": "new StoreSubscriber(this, () => this.store?.myResourceBooking)"
+              "default": "new StoreSubscriber(this, () => this.store?.myBookableResource)"
             },
             {
               "kind": "method",
-              "name": "updateResourceBooking",
+              "name": "updateBookableResource",
               "parameters": [
                 {
                   "name": "resource-booking",
                   "type": {
-                    "text": "ResourceBooking"
+                    "text": "BookableResource"
                   }
                 }
               ]
@@ -2940,9 +2940,9 @@
       "exports": [
         {
           "kind": "js",
-          "name": "UpdateResourceBooking",
+          "name": "UpdateBookableResource",
           "declaration": {
-            "name": "UpdateResourceBooking",
+            "name": "UpdateBookableResource",
             "module": "src/elements/update-resource-booking.ts"
           }
         }
@@ -2979,7 +2979,7 @@
           "members": [
             {
               "kind": "method",
-              "name": "create_resource_booking",
+              "name": "create_bookable_resource",
               "parameters": [
                 {
                   "name": "{ username }"
@@ -2991,7 +2991,7 @@
             },
             {
               "kind": "method",
-              "name": "search_resource_bookings",
+              "name": "search_bookable_resources",
               "parameters": [
                 {
                   "name": "{ username_prefix }"
@@ -3000,7 +3000,7 @@
             },
             {
               "kind": "method",
-              "name": "get_my_resource_booking",
+              "name": "get_my_bookable_resource",
               "parameters": [
                 {
                   "name": "_"
@@ -3012,7 +3012,7 @@
             },
             {
               "kind": "method",
-              "name": "get_agent_resource_booking",
+              "name": "get_agent_bookable_resource",
               "parameters": [
                 {
                   "name": "{ agent_address }"

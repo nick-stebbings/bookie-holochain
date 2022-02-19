@@ -1,17 +1,17 @@
 [package]
 authors = ["guillem.cordoba@gmail.com", "eric@harris-braun.com", "tatsuya.g.sato@yumeville.com"]
-description = "Types for the hc_zome_resource_bookings zome"
+description = "Types for the hc_zome_bookable_resources zome"
 documentation = "https://holochain-open-dev.github.io/resource"
 edition = "2018"
-homepage = "https://docs.rs/hc_zome_resource_bookings_types"
+homepage = "https://docs.rs/hc_zome_bookable_resources_types"
 license = "MIT"
-name = "hc_zome_resource_bookings_types"
+name = "hc_zome_bookable_resources_types"
 repository = "https://github.com/holochain-open-dev/resource"
 version = "0.0.1"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
-name = "hc_zome_resource_bookings_types"
+name = "hc_zome_bookable_resources_types"
 
 [dependencies]
 derive_more = "0"

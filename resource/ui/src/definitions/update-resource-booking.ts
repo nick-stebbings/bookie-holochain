@@ -1,5 +1,5 @@
 import { customElement } from 'lit/decorators.js';
-import { UpdateResourceBooking } from '../elements/update-resource-booking';
+import { UpdateBookableResource } from '../elements/update-resource-booking';
 
 @customElement('update-resource-booking')
-class UP extends UpdateResourceBooking {}
+class UP extends UpdateBookableResource {}

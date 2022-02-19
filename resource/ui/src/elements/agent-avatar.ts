@@ -38,13 +38,13 @@ export class AgentAvatar extends ScopedElementsMixin(LitElement) {
   @property({ type: Object })
   store!: ResourceStore;
 
-  private _resource_booking = new StoreSubscriber(this, () =>
+  private _bookable_resource = new StoreSubscriber(this, () =>
     this.store?.resourceBookingOf(this.agentPubKey)
   );
 
   async firstUpdated() {
     if (this.store.config.avatarMode === 'avatar') {
-      await this.store.fetchAgentResourceBooking(this.agentPubKey);
+      await this.store.fetchAgentBookableResource(this.agentPubKey);
     }
   }
 
@@ -54,10 +54,10 @@ export class AgentAvatar extends ScopedElementsMixin(LitElement) {
         .hash=${this.agentPubKey}
         .size=${this.size}
       ></holo-identicon>`;
-    if (this._resource_booking.value)
+    if (this._bookable_resource.value)
       return html`
         <sl-avatar
-          .image=${this._resource_booking.value.fields.avatar}
+          .image=${this._bookable_resource.value.fields.avatar}
           style="--size: ${this.size}px;"
         >
           <div slot="icon"></div>

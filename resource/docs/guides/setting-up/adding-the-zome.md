@@ -5,7 +5,7 @@
 
 ```toml
 [dependencies]
-hc_zome_resource_bookings = {git = "https://github.com/holochain-open-dev/resource", rev = "for-hc-v0.0.124", package = "hc_zome_resource_bookings"}
+hc_zome_bookable_resources = {git = "https://github.com/holochain-open-dev/resource", rev = "for-hc-v0.0.124", package = "hc_zome_bookable_resources"}
 ```
 
 Replace the `rev` field with the holochain version you are using. See [which tags are available](https://github.com/holochain-open-dev/resource/tags).
@@ -13,7 +13,7 @@ Replace the `rev` field with the holochain version you are using. See [which tag
 3.  Replace the contents of the `lib.rs` with this content:
 
 ```rust
-extern crate hc_zome_resource_bookings;
+extern crate hc_zome_bookable_resources;
 ```
 
 4. Add this new crate to your top level `Cargo.toml`.

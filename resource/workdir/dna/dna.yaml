@@ -5,7 +5,7 @@ uuid: 00000000-0000-0000-0000-000000000000
 properties: ~
 zomes:
   - name: resource
-    bundled: ../../target/wasm32-unknown-unknown/release/hc_zome_resource_bookings.wasm
+    bundled: ../../target/wasm32-unknown-unknown/release/hc_zome_bookable_resources.wasm
 
   - name: profiles
     bundled: ../../target/wasm32-unknown-unknown/release/profiles.wasm

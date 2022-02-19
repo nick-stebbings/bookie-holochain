@@ -34,7 +34,7 @@ OR
 ```js
 import { LitElement, html } from "lit";
 import { ScopedElementsMixin } from "@open-wc/scoped-elements";
-import { CreateResourceBooking } from "@holochain-open-dev/resource";
+import { CreateBookableResource } from "@holochain-open-dev/resource";
 
 export class ResourceTest extends ScopedElementsMixin(LitElement) {
   render() {
@@ -43,7 +43,7 @@ export class ResourceTest extends ScopedElementsMixin(LitElement) {
 
   static get scopedElements() {
     return {
-      "create-resource-booking": CreateResourceBooking,
+      "create-resource-booking": CreateBookableResource,
     };
   }
 }
@@ -74,7 +74,6 @@ async function setupResourceStore() {
   });
 }
 ```
-
 
 4. Import the `<context-provider>` element and add it to your html **wrapping the whole section of your page in which you are going to be placing** the elements from `@holochain-open-dev/resource`:
 
@@ -123,6 +122,5 @@ contextElement.value = store;
 ```
 
 You can see a full working example of the UI working in [here](https://github.com/holochain-open-dev/resource/blob/main/ui/demo/index.html).
-
 
 That's it! You can spend some time now to take a look at [which elements are available for you to reuse](../frontend/elements.md).

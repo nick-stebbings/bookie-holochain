@@ -14,7 +14,7 @@ import { AgentAvatar } from './agent-avatar';
 /**
  * @element resource-booking-detail
  */
-export class ResourceBookingDetail extends ScopedElementsMixin(LitElement) {
+export class BookableResourceDetail extends ScopedElementsMixin(LitElement) {
   /** Public properties */
 
   /**
@@ -38,12 +38,12 @@ export class ResourceBookingDetail extends ScopedElementsMixin(LitElement) {
   @state()
   private _loading = true;
 
-  private _agentResourceBooking = new StoreSubscriber(this, () =>
+  private _agentBookableResource = new StoreSubscriber(this, () =>
     this.store?.resourceBookingOf(this.agentPubKey)
   );
 
   async firstUpdated() {
-    await this.store.fetchAgentResourceBooking(this.agentPubKey);
+    await this.store.fetchAgentBookableResource(this.agentPubKey);
     this._loading = false;
   }
 
@@ -51,7 +51,7 @@ export class ResourceBookingDetail extends ScopedElementsMixin(LitElement) {
     const fields: Dictionary<string> = {};
 
     for (const [key, value] of Object.entries(
-      this._agentResourceBooking.value.fields
+      this._agentBookableResource.value.fields
     )) {
       if (key !== 'avatar') {
         fields[key] = value;
@@ -98,7 +98,7 @@ export class ResourceBookingDetail extends ScopedElementsMixin(LitElement) {
         </div>
       `;
 
-    if (!this._agentResourceBooking.value)
+    if (!this._agentBookableResource.value)
       return html`<div
         class="column"
         style="align-items: center; justify-content: center; flex: 1;"
@@ -111,7 +111,7 @@ export class ResourceBookingDetail extends ScopedElementsMixin(LitElement) {
         <div class="row" style="align-items: center">
           <agent-avatar .agentPubKey=${this.agentPubKey}></agent-avatar>
           <span style="font-size: 16px; margin-left: 8px;"
-            >${this._agentResourceBooking.value.nickname}</span
+            >${this._agentBookableResource.value.nickname}</span
           >
 
           <span style="flex: 1"></span>

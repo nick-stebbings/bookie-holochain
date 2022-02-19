@@ -1,13 +1,13 @@
 import { AgentPubKeyB64, Dictionary } from '@holochain-open-dev/core-types';
 
-export interface ResourceBooking {
+export interface BookableResource {
   nickname: string;
   fields: Dictionary<string>;
 }
 
-export interface AgentResourceBooking {
+export interface AgentBookableResource {
   agentPubKey: AgentPubKeyB64;
-  resourceBooking: ResourceBooking;
+  resourceBooking: BookableResource;
 }
 
 export interface SearchResourceInput {

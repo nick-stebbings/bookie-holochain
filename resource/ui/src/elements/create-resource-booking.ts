@@ -16,8 +16,8 @@ import { sharedStyles } from './utils/shared-styles';
 import { ResourceStore } from '../resource-store';
 import { resourceStoreContext } from '../context';
 import { resizeAndExport } from './utils/image';
-import { EditResourceBooking } from './edit-resource-booking';
-import { ResourceBooking } from '../types';
+import { EditBookableResource } from './edit-resource-booking';
+import { BookableResource } from '../types';
 
 /**
  * A custom element that fires event on value change.
@@ -25,7 +25,7 @@ import { ResourceBooking } from '../types';
  * @element create-resource-booking
  * @fires resource-booking-created - Fired after the resourceBooking has been created. Detail will have this shape: { resourceBooking: { nickname, fields } }
  */
-export class CreateResourceBooking extends ScopedElementsMixin(LitElement) {
+export class CreateBookableResource extends ScopedElementsMixin(LitElement) {
   /** Dependencies */
 
   /**
@@ -38,8 +38,8 @@ export class CreateResourceBooking extends ScopedElementsMixin(LitElement) {
 
   /** Private properties */
 
-  async createResourceBooking(resourceBooking: ResourceBooking) {
-    await this.store.createResourceBooking(resourceBooking);
+  async createBookableResource(resourceBooking: BookableResource) {
+    await this.store.createBookableResource(resourceBooking);
 
     this.dispatchEvent(
       new CustomEvent('resource-booking-created', {
@@ -59,12 +59,12 @@ export class CreateResourceBooking extends ScopedElementsMixin(LitElement) {
           <span
             class="title"
             style="margin-bottom: 24px; align-self: flex-start"
-            >Create ResourceBooking</span
+            >Create BookableResource</span
           >
           <edit-resource-booking
-            save-resource-booking-label="Create ResourceBooking"
+            save-resource-booking-label="Create BookableResource"
             @save-resource-booking=${(e: CustomEvent) =>
-              this.createResourceBooking(e.detail.resourceBooking)}
+              this.createBookableResource(e.detail.resourceBooking)}
           ></edit-resource-booking></div
       ></mwc-card>
     `;
@@ -75,7 +75,7 @@ export class CreateResourceBooking extends ScopedElementsMixin(LitElement) {
    */
   static get scopedElements() {
     return {
-      'edit-resource-booking': EditResourceBooking,
+      'edit-resource-booking': EditBookableResource,
       'mwc-card': Card,
     };
   }

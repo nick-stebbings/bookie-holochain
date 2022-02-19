@@ -1,15 +1,15 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import { setupApolloClientMock } from './mocks';
-import { HodCreateResourceBookingForm } from '../dist';
+import { HodCreateBookableResourceForm } from '../dist';
 import { setupApolloClientElement } from '@holochain-open-dev/common';
 
-describe('HodCreateResourceBookingForm', () => {
+describe('HodCreateBookableResourceForm', () => {
   it('create resource-booking has a placeholder', async () => {
     const client = await setupApolloClientMock();
 
     customElements.define(
       'hod-create-resource-booking-form',
-      setupApolloClientElement(HodCreateResourceBookingForm, client)
+      setupApolloClientElement(HodCreateBookableResourceForm, client)
     );
 
     const el = await fixture(

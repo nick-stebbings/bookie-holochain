@@ -5,13 +5,13 @@ import {
   serializeHash,
 } from '@holochain-open-dev/core-types';
 import { CellId, AppSignalCb } from '@holochain/client';
-import { AgentResourceBooking } from './types';
+import { AgentBookableResource } from './types';
 
 const sleep = (ms: number) => new Promise(r => setTimeout(() => r(null), ms));
 
 export class ResourceZomeMock extends CellClient {
   constructor(
-    protected agents: Array<AgentResourceBooking> = [],
+    protected agents: Array<AgentBookableResource> = [],
     protected latency: number = 500
   ) {
     super(null as any, null as any);
@@ -28,8 +28,8 @@ export class ResourceZomeMock extends CellClient {
     return serializeHash(this.cellId[1]);
   }
 
-  create_resource_booking({ nickname }: { nickname: string }) {
-    const agent: AgentResourceBooking = {
+  create_bookable_resource({ nickname }: { nickname: string }) {
+    const agent: AgentBookableResource = {
       agentPubKey: this.myPubKeyB64,
       resourceBooking: { nickname, fields: {} },
     };
@@ -38,13 +38,13 @@ export class ResourceZomeMock extends CellClient {
     return agent;
   }
 
-  search_resource_bookings({ nicknamePrefix }: { nicknamePrefix: string }) {
+  search_bookable_resources({ nicknamePrefix }: { nicknamePrefix: string }) {
     return this.agents.filter(a =>
       a.resourceBooking.nickname.startsWith(nicknamePrefix.slice(0, 3))
     );
   }
 
-  get_my_resource_booking() {
+  get_my_bookable_resource() {
     const agent = this.findAgent(this.myPubKeyB64);
 
     if (!agent) return undefined;
@@ -54,12 +54,12 @@ export class ResourceZomeMock extends CellClient {
     };
   }
 
-  get_agent_resource_booking(agent_address: AgentPubKeyB64) {
+  get_agent_bookable_resource(agent_address: AgentPubKeyB64) {
     const agent = this.findAgent(agent_address);
     return agent ? agent : undefined;
   }
 
-  get_all_resource_bookings() {
+  get_all_bookable_resources() {
     return this.agents;
   }
 

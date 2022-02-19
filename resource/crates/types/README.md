@@ -1,6 +1,6 @@
-# hc_zome_resource_bookings_types
+# hc_zome_bookable_resources_types
 
-Types for the hc_zome_resource_bookings zome.
+Types for the hc_zome_bookable_resources zome.
 
 ## Documentation
 

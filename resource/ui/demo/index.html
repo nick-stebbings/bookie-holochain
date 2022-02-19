@@ -27,7 +27,7 @@
           profilesStoreContext,
         } from '@holochain-open-dev/profiles';
   
-        import { CreateResourceBooking, ResourceStore, resourceStoreContext } from '../dist';
+        import { CreateBookableResource, ResourceStore, resourceStoreContext } from '../dist';
   
         import { ContextProvider } from '@holochain-open-dev/context';
         import { HolochainClient } from '@holochain-open-dev/cell-client';
@@ -75,7 +75,7 @@
           static get scopedElements() {
             return {
               'profile-prompt': ProfilePrompt,
-              'create-resource-booking': CreateResourceBooking,
+              'create-resource-booking': CreateBookableResource,
             };
           }
         }

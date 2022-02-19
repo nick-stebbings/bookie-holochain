@@ -5,7 +5,7 @@ export class ResourceMock {
     this.agents = [];
   }
 
-  create_resource_booking({ username }, provenance) {
+  create_bookable_resource({ username }, provenance) {
     const agent = {
       agent_pub_key: hashToString(provenance),
       resource-booking: { username, fields: {} },
@@ -15,7 +15,7 @@ export class ResourceMock {
     return agent;
   }
 
-  search_resource_bookings({ username_prefix }) {
+  search_bookable_resources({ username_prefix }) {
     return this.agents
       .filter(a => a.resource-booking.username.startsWith(username_prefix.slice(0, 3)))
       .map(a => ({
@@ -24,7 +24,7 @@ export class ResourceMock {
       }));
   }
 
-  get_my_resource_booking(_, provenance) {
+  get_my_bookable_resource(_, provenance) {
     const agent = this.findAgent(hashToString(provenance));
 
     if (!agent)
@@ -37,7 +37,7 @@ export class ResourceMock {
     };
   }
 
-  get_agent_resource_booking({ agent_address }) {
+  get_agent_bookable_resource({ agent_address }) {
     const agent = this.findAgent(agent_address);
     return agent ? agent.username : undefined;
   }

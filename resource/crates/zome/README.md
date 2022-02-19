@@ -1,4 +1,4 @@
-# hc_zome_resource_bookings
+# hc_zome_bookable_resources
 
 Resource zome for any Holochain app.
 

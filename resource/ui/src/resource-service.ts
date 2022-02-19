@@ -1,6 +1,6 @@
 import { CellClient } from '@holochain-open-dev/cell-client';
 import { AgentPubKeyB64 } from '@holochain-open-dev/core-types';
-import { AgentResourceBooking, ResourceBooking } from './types';
+import { AgentBookableResource, BookableResource } from './types';
 
 export class ResourceService {
   constructor(public cellClient: CellClient, public zomeName = 'resource') {}
@@ -9,8 +9,8 @@ export class ResourceService {
    * Get my resourceBooking, if it has been created
    * @returns my resourceBooking
    */
-  async getMyResourceBooking(): Promise<AgentResourceBooking> {
-    return this.callZome('get_my_resource_booking', null);
+  async getMyBookableResource(): Promise<AgentBookableResource> {
+    return this.callZome('get_my_bookable_resource', null);
   }
 
   /**
@@ -19,8 +19,8 @@ export class ResourceService {
    * @param agentPubKey the agent to get the resourceBooking for
    * @returns the resourceBooking of the agent
    */
-  async getAgentResourceBooking(agentPubKey: AgentPubKeyB64): Promise<AgentResourceBooking> {
-    return this.callZome('get_agent_resource_booking', agentPubKey);
+  async getAgentBookableResource(agentPubKey: AgentPubKeyB64): Promise<AgentBookableResource> {
+    return this.callZome('get_agent_bookable_resource', agentPubKey);
   }
 
   /**
@@ -31,8 +31,8 @@ export class ResourceService {
    */
   async getAgentsResource(
     agentPubKeys: AgentPubKeyB64[]
-  ): Promise<AgentResourceBooking[]> {
-    return this.callZome('get_agents_resource_booking', agentPubKeys);
+  ): Promise<AgentBookableResource[]> {
+    return this.callZome('get_agents_bookable_resource', agentPubKeys);
   }
 
   /**
@@ -41,8 +41,8 @@ export class ResourceService {
    * @param nicknamePrefix must be of at least 3 characters
    * @returns the resource with the nickname starting with nicknamePrefix
    */
-  async searchResource(nicknamePrefix: string): Promise<Array<AgentResourceBooking>> {
-    return this.callZome('search_resource_bookings', {
+  async searchResource(nicknamePrefix: string): Promise<Array<AgentBookableResource>> {
+    return this.callZome('search_bookable_resources', {
       nicknamePrefix: nicknamePrefix,
     });
   }
@@ -52,8 +52,8 @@ export class ResourceService {
    * 
    * @returns the resource for all the agents in the DHT
    */
-  async getAllResource(): Promise<Array<AgentResourceBooking>> {
-    return this.callZome('get_all_resource_bookings', null);
+  async getAllResource(): Promise<Array<AgentBookableResource>> {
+    return this.callZome('get_all_bookable_resources', null);
   }
 
   /**
@@ -62,8 +62,8 @@ export class ResourceService {
    * @param resourceBooking the resourceBooking to create
    * @returns my resourceBooking with my agentPubKey
    */
-   async createResourceBooking(resourceBooking: ResourceBooking): Promise<AgentResourceBooking> {
-    const resourceBookingResult = await this.callZome('create_resource_booking', resourceBooking);
+   async createBookableResource(resourceBooking: BookableResource): Promise<AgentBookableResource> {
+    const resourceBookingResult = await this.callZome('create_bookable_resource', resourceBooking);
 
     return {
       agentPubKey: resourceBookingResult.agentPubKey,
@@ -77,8 +77,8 @@ export class ResourceService {
    * @param resourceBooking the resourceBooking to create
    * @returns my resourceBooking with my agentPubKey
    */
-  async updateResourceBooking(resourceBooking: ResourceBooking): Promise<AgentResourceBooking> {
-    const resourceBookingResult = await this.callZome('update_resource_booking', resourceBooking);
+  async updateBookableResource(resourceBooking: BookableResource): Promise<AgentBookableResource> {
+    const resourceBookingResult = await this.callZome('update_bookable_resource', resourceBooking);
 
     return {
       agentPubKey: resourceBookingResult.agentPubKey,

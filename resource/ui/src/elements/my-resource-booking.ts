@@ -6,15 +6,15 @@ import { property, state } from 'lit/decorators.js';
 import { resourceStoreContext } from '../context';
 import { ResourceStore } from '../resource-store';
 import { sharedStyles } from './utils/shared-styles';
-import { EditResourceBooking } from './edit-resource-booking';
-import { ResourceBookingDetail } from './resource-booking-detail';
+import { EditBookableResource } from './edit-resource-booking';
+import { BookableResourceDetail } from './resource-booking-detail';
 import { IconButton } from '@scoped-elements/material-web';
-import { UpdateResourceBooking } from './update-resource-booking';
+import { UpdateBookableResource } from './update-resource-booking';
 
 /**
  * @element resource-booking-detail
  */
-export class MyResourceBooking extends ScopedElementsMixin(LitElement) {
+export class MyBookableResource extends ScopedElementsMixin(LitElement) {
   /** Dependencies */
 
   /**
@@ -53,8 +53,8 @@ export class MyResourceBooking extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
       'mwc-icon-button': IconButton,
-      'resource-booking-detail': ResourceBookingDetail,
-      'update-resource-booking': UpdateResourceBooking,
+      'resource-booking-detail': BookableResourceDetail,
+      'update-resource-booking': UpdateBookableResource,
     };
   }
 

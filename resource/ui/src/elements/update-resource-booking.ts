@@ -17,15 +17,15 @@ import { sharedStyles } from './utils/shared-styles';
 import { ResourceStore } from '../resource-store';
 import { resourceStoreContext } from '../context';
 import { resizeAndExport } from './utils/image';
-import { EditResourceBooking } from './edit-resource-booking';
-import { ResourceBooking } from '../types';
+import { EditBookableResource } from './edit-resource-booking';
+import { BookableResource } from '../types';
 import { StoreSubscriber } from 'lit-svelte-stores';
 
 /**
  * @element update-resource-booking
  * @fires resource-booking-updated - Fired after the resourceBooking has been created. Detail will have this shape: { resourceBooking: { nickname, fields } }
  */
-export class UpdateResourceBooking extends ScopedElementsMixin(LitElement) {
+export class UpdateBookableResource extends ScopedElementsMixin(LitElement) {
   /** Dependencies */
 
   /**
@@ -41,15 +41,15 @@ export class UpdateResourceBooking extends ScopedElementsMixin(LitElement) {
   @state()
   private _loading = true;
 
-  private _myResourceBooking = new StoreSubscriber(this, () => this.store?.myResourceBooking);
+  private _myBookableResource = new StoreSubscriber(this, () => this.store?.myBookableResource);
 
   async firstUpdated() {
-    await this.store.fetchMyResourceBooking();
+    await this.store.fetchMyBookableResource();
     this._loading = false;
   }
 
-  async updateResourceBooking(resourceBooking: ResourceBooking) {
-    await this.store.updateResourceBooking(resourceBooking);
+  async updateBookableResource(resourceBooking: BookableResource) {
+    await this.store.updateBookableResource(resourceBooking);
 
     this.dispatchEvent(
       new CustomEvent('resource-booking-updated', {
@@ -73,10 +73,10 @@ export class UpdateResourceBooking extends ScopedElementsMixin(LitElement) {
 
     return html`
       <edit-resource-booking
-        .resourceBooking=${this._myResourceBooking.value}
-        save-resource-booking-label="Update ResourceBooking"
+        .resourceBooking=${this._myBookableResource.value}
+        save-resource-booking-label="Update BookableResource"
         @save-resource-booking=${(e: CustomEvent) =>
-          this.updateResourceBooking(e.detail.resourceBooking)}
+          this.updateBookableResource(e.detail.resourceBooking)}
       ></edit-resource-booking>
     `;
   }
@@ -87,7 +87,7 @@ export class UpdateResourceBooking extends ScopedElementsMixin(LitElement) {
   static get scopedElements() {
     return {
       'mwc-circular-progress': CircularProgress,
-      'edit-resource-booking': EditResourceBooking,
+      'edit-resource-booking': EditBookableResource,
       'mwc-card': Card,
     };
   }

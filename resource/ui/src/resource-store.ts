@@ -7,14 +7,14 @@ import {
 import merge from 'lodash-es/merge';
 
 import { ResourceService } from './resource-service';
-import { AgentResourceBooking, ResourceBooking } from './types';
+import { AgentBookableResource, BookableResource } from './types';
 import { writable, Writable, derived, Readable, get } from 'svelte/store';
 import { defaultConfig, ResourceConfig } from './config';
 
 export class ResourceStore {
   /** Private */
   private _service: ResourceService;
-  private _knownResourceStore: Writable<Dictionary<ResourceBooking>> = writable({});
+  private _knownResourceStore: Writable<Dictionary<BookableResource>> = writable({});
 
   /** Static info */
   public myAgentPubKey: AgentPubKeyB64;
@@ -23,19 +23,19 @@ export class ResourceStore {
 
   // Store containing all the resource that have been fetched
   // The key is the agentPubKey of the agent
-  public knownResource: Readable<Dictionary<ResourceBooking>> = derived(
+  public knownResource: Readable<Dictionary<BookableResource>> = derived(
     this._knownResourceStore,
     i => i
   );
 
   // Store containing my resourceBooking
-  public myResourceBooking: Readable<ResourceBooking> = derived(
+  public myBookableResource: Readable<BookableResource> = derived(
     this._knownResourceStore,
     resource => resource[this.myAgentPubKey]
   );
 
   // Returns a store with the resourceBooking of the given agent
-  resourceBookingOf(agentPubKey: AgentPubKeyB64): Readable<ResourceBooking> {
+  resourceBookingOf(agentPubKey: AgentPubKeyB64): Readable<BookableResource> {
     return derived(this._knownResourceStore, resource => resource[agentPubKey]);
   }
 
@@ -73,9 +73,9 @@ export class ResourceStore {
   /**
    * Fetches the resourceBooking for the given agent
    */
-  async fetchAgentResourceBooking(
+  async fetchAgentBookableResource(
     agentPubKey: AgentPubKeyB64
-  ): Promise<ResourceBooking | undefined> {
+  ): Promise<BookableResource | undefined> {
     // For now, optimistic return of the cached resourceBooking
     // TODO: implement cache invalidation
 
@@ -83,7 +83,7 @@ export class ResourceStore {
 
     if (knownResource[agentPubKey]) return knownResource[agentPubKey];
 
-    const resourceBooking = await this._service.getAgentResourceBooking(agentPubKey);
+    const resourceBooking = await this._service.getAgentBookableResource(agentPubKey);
 
     if (!resourceBooking) return;
 
@@ -99,7 +99,7 @@ export class ResourceStore {
    *
    * You can subscribe to knowResource to get updated with all the resource when this call is done
    *
-   * Use this over `fetchAgentResourceBooking` when fetching multiple resource, as it will be more performant
+   * Use this over `fetchAgentBookableResource` when fetching multiple resource, as it will be more performant
    */
   async fetchAgentsResource(agentPubKeys: AgentPubKeyB64[]): Promise<void> {
     // For now, optimistic return of the cached resourceBooking
@@ -121,8 +121,8 @@ export class ResourceStore {
     );
 
     this._knownResourceStore.update(resource => {
-      for (const fetchedResourceBooking of fetchedResource) {
-        resource[fetchedResourceBooking.agentPubKey] = fetchedResourceBooking.resourceBooking;
+      for (const fetchedBookableResource of fetchedResource) {
+        resource[fetchedBookableResource.agentPubKey] = fetchedBookableResource.resourceBooking;
       }
       return resource;
     });
@@ -131,10 +131,10 @@ export class ResourceStore {
   /**
    * Fetch my resourceBooking
    *
-   * You can subscribe to `myResourceBooking` to get updated with my resourceBooking
+   * You can subscribe to `myBookableResource` to get updated with my resourceBooking
    */
-  async fetchMyResourceBooking(): Promise<void> {
-    const resourceBooking = await this._service.getMyResourceBooking();
+  async fetchMyBookableResource(): Promise<void> {
+    const resourceBooking = await this._service.getMyBookableResource();
     if (resourceBooking) {
       this._knownResourceStore.update(resource => {
         resource[resourceBooking.agentPubKey] = resourceBooking.resourceBooking;
@@ -149,7 +149,7 @@ export class ResourceStore {
    * @param nicknamePrefix must be of at least 3 characters
    * @returns the resource with the nickname starting with nicknamePrefix
    */
-  async searchResource(nicknamePrefix: string): Promise<AgentResourceBooking[]> {
+  async searchResource(nicknamePrefix: string): Promise<AgentBookableResource[]> {
     const searchedResource = await this._service.searchResource(nicknamePrefix);
 
     this._knownResourceStore.update(resource => {
@@ -168,8 +168,8 @@ export class ResourceStore {
    *
    * @param resourceBooking resourceBooking to be created
    */
-  async createResourceBooking(resourceBooking: ResourceBooking): Promise<void> {
-    await this._service.createResourceBooking(resourceBooking);
+  async createBookableResource(resourceBooking: BookableResource): Promise<void> {
+    await this._service.createBookableResource(resourceBooking);
 
     this._knownResourceStore.update(resource => {
       resource[this.myAgentPubKey] = resourceBooking;
@@ -182,8 +182,8 @@ export class ResourceStore {
    *
    * @param resourceBooking resourceBooking to be created
    */
-  async updateResourceBooking(resourceBooking: ResourceBooking): Promise<void> {
-    await this._service.updateResourceBooking(resourceBooking);
+  async updateBookableResource(resourceBooking: BookableResource): Promise<void> {
+    await this._service.updateBookableResource(resourceBooking);
 
     this._knownResourceStore.update(resource => {
       resource[this.myAgentPubKey] = resourceBooking;

@@ -11,7 +11,7 @@ import { contextProvided } from '@holochain-open-dev/context';
 import { StoreSubscriber } from 'lit-svelte-stores';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 
-import { AgentResourceBooking } from '../types';
+import { AgentBookableResource } from '../types';
 import { sharedStyles } from './utils/shared-styles';
 import { ResourceStore } from '../resource-store';
 import { resourceStoreContext } from '../context';
@@ -62,7 +62,7 @@ export class SearchAgent extends ScopedElementsMixin(LitElement) {
     () => this.store?.knownResource
   );
 
-  private get _filteredAgents(): Array<AgentResourceBooking> {
+  private get _filteredAgents(): Array<AgentBookableResource> {
     let filtered = Object.entries(this._knownResource.value)
       .filter(([agentPubKey, resourceBooking]) =>
         resourceBooking.nickname.startsWith(this._currentFilter as string)
@@ -109,7 +109,7 @@ export class SearchAgent extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  onUsernameSelected(agent: AgentResourceBooking) {
+  onUsernameSelected(agent: AgentBookableResource) {
     // If nickname matches agent, user has selected it
     if (agent) {
       this.dispatchEvent(

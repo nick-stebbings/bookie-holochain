@@ -14,7 +14,7 @@ import { property, query, state } from 'lit/decorators.js';
 
 import { ResourceStore } from '../resource-store';
 import { resourceStoreContext } from '../context';
-import { ResourceBooking } from '../types';
+import { BookableResource } from '../types';
 import { resizeAndExport } from './utils/image';
 import { sharedStyles } from './utils/shared-styles';
 
@@ -22,18 +22,18 @@ import { sharedStyles } from './utils/shared-styles';
  * @element edit-resource-booking
  * @fires save-resource-booking - Fired when the save resourceBooking button is clicked
  */
-export class EditResourceBooking extends ScopedElementsMixin(LitElement) {
+export class EditBookableResource extends ScopedElementsMixin(LitElement) {
   /**
    * The resourceBooking to be edited.
    */
   @property({ type: Object })
-  resourceBooking: ResourceBooking | undefined;
+  resourceBooking: BookableResource | undefined;
 
   /**
    * Label for the save resourceBooking button.
    */
   @property({ type: String, attribute: 'save-resource-booking-label' })
-  saveResourceBookingLabel = 'Save ResourceBooking';
+  saveBookableResourceLabel = 'Save BookableResource';
 
   /** Dependencies */
 
@@ -175,7 +175,7 @@ export class EditResourceBooking extends ScopedElementsMixin(LitElement) {
     return fields;
   }
 
-  fireSaveResourceBooking() {
+  fireSaveBookableResource() {
     const nickname = this._nicknameField.value;
 
     const fields: Dictionary<string> = this.getAdditionalFieldsValues();
@@ -183,7 +183,7 @@ export class EditResourceBooking extends ScopedElementsMixin(LitElement) {
       fields['avatar'] = this._avatar;
     }
 
-    const resourceBooking: ResourceBooking = {
+    const resourceBooking: BookableResource = {
       fields,
       nickname,
     };
@@ -251,8 +251,8 @@ export class EditResourceBooking extends ScopedElementsMixin(LitElement) {
             raised
             style="margin-top: 8px;"
             .disabled=${!this.shouldSaveButtonBeEnabled()}
-            .label=${this.saveResourceBookingLabel}
-            @click=${() => this.fireSaveResourceBooking()}
+            .label=${this.saveBookableResourceLabel}
+            @click=${() => this.fireSaveBookableResource()}
           ></mwc-button>
         </div>
       </mwc-card>
